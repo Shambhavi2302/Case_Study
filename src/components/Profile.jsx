@@ -23,7 +23,7 @@ function Profile() {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`http://localhost:4000/api/user/getDetails/${id}`);
-                const userData = response.data; // Assuming response.data contains username and email
+                const userData = response.data; 
 
                 setUser({
                     username: userData.username,

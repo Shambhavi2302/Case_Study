@@ -1,16 +1,38 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect } from 'react'
+import './Offers.css';
+import { useNavigate } from 'react-router';
 
 export default function Offers() {
+
+const token = localStorage.getItem('token');
+const navigate = useNavigate();
+
+useEffect(()=>{
+  if(!token)
+  {
+    navigate('/');
+  }
+})
+
+  const sendEmail = async () => {
+   const res= await axios.post("http://localhost:4000/api/user/mail");
+   console.log("Email response=",res)
+    if(res.status===200)
+    {
+      alert("Check you mail for exciting Offers!")
+    }
+  }
+
   return (
-    <div>
-      <div class="card border-success mb-3" style={{maxWidth: "18rem"}}>
-  <div class="card-header bg-transparent border-success">Header</div>
-  <div class="card-body text-success">
-    <h5 class="card-title">Success card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-  <div class="card-footer bg-transparent border-success">Footer</div>
+
+<div class="container">
+<div class="advertisement">
+    <h2>Don't Miss Out!</h2>
+    <p>Enjoy a whopping <span class="discount">50% off</span> on all items.</p>
+    <p>This offer is only valid for a limited time!</p>
+    <button class="btn" onClick={sendEmail}>Avail all your offers</button>
 </div>
-    </div>
+</div>
   )
 }
